@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root { --ink: #101416; --paper: #f4f0e8; --panel: #192023; --muted: #9ba7a5; --coral: #ff725e; --mint: #9be3bd; }
+
+@theme inline { --color-ink: var(--ink); --color-paper: var(--paper); --color-panel: var(--panel); --color-muted: var(--muted); --color-coral: var(--coral); --color-mint: var(--mint); }
+
+* { box-sizing: border-box; }
+
+body { background: var(--ink); font-family: Arial, Helvetica, sans-serif; }
