@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { db, getDeviceId, updateSyncStatus, setBootstrapComplete, isBootstrapComplete } from "@/lib/db/dexie";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
@@ -21,6 +21,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
   const [deviceId, setDeviceId] = useState<string | null>(null);
   const [pendingCount, setPendingCount] = useState(0);
   const [isOnline, setIsOnline] = useState(true);
+  const syncPendingOperationsRef = useRef<() => Promise<void>>(() => Promise.resolve());
 
   // Initialize device ID and check online status
   useEffect(() => {
@@ -28,7 +29,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
       const id = await getDeviceId();
       setDeviceId(id);
       setIsOnline(navigator.onLine);
-      
+
       const alreadyBootstrapped = await isBootstrapComplete();
       if (alreadyBootstrapped) {
         setStatus("READY");
@@ -40,10 +41,10 @@ export function useOfflineSync(): UseOfflineSyncReturn {
       setIsOnline(true);
       if (status === "OFFLINE") {
         setStatus("SYNCING");
-        syncPendingOperations();
+        syncPendingOperationsRef.current().catch(console.error);
       }
     };
-    
+
     const handleOffline = () => {
       setIsOnline(false);
       setStatus("OFFLINE");
@@ -56,7 +57,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
     };
-  }, []);
+  }, [status]);
 
   // Count pending operations
   useEffect(() => {
@@ -69,13 +70,13 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
   const bootstrap = useCallback(async () => {
     if (!deviceId) return;
-    
+
     setStatus("BOOTSTRAPPING");
     updateSyncStatus("SYNCING");
 
     try {
       const supabase = createSupabaseBrowserClient();
-      
+
       // Fetch participants (without email for security)
       const { data: participants, error: pError } = await supabase
         .from("participants")
@@ -136,7 +137,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
   const syncPendingOperations = useCallback(async () => {
     if (!deviceId || !isOnline) return;
-    
+
     setStatus("SYNCING");
     updateSyncStatus("SYNCING");
 
@@ -189,16 +190,21 @@ export function useOfflineSync(): UseOfflineSyncReturn {
       console.error("Sync failed:", error);
       setStatus(isOnline ? "ERROR" : "OFFLINE");
       updateSyncStatus("ERROR");
-      
+
       // Revert syncing ops back to pending
       await db.syncOperations
         .where("status")
         .equals("SYNCING")
         .modify({ status: "PENDING" });
-      
+
       throw error;
     }
   }, [deviceId, isOnline]);
+
+  // Store syncPendingOperations in ref for use in handleOnline
+  useEffect(() => {
+    syncPendingOperationsRef.current = syncPendingOperations;
+  }, [syncPendingOperations]);
 
   const addOperation = useCallback(async (op: Omit<import("@/lib/db/dexie").SyncOperation, "id">) => {
     if (!deviceId) throw new Error("Device not initialized");

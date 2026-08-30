@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -60,7 +61,7 @@ export default function VolunteerLoginPage() {
         </div>
 
         <div className="mt-8 border-t border-white/10 pt-6">
-          <a className="inline-flex min-h-10 items-center border border-white/20 px-5 text-sm font-bold transition-colors hover:border-coral hover:text-coral" href="/">Back to overview</a>
+          <Link href="/" className="inline-flex min-h-10 items-center border border-white/20 px-5 text-sm font-bold transition-colors hover:border-coral hover:text-coral">Back to overview</Link>
         </div>
       </section>
     </main>
