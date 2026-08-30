@@ -1,5 +1,5 @@
 ```
-# Next.js build artifacts
+# Next.js build outputs
 .next/
 # TypeScript build info
 *.tsbuildinfo
