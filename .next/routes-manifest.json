@@ -57,6 +57,30 @@
       "namedRegex": "^/admin(?:/)?$"
     },
     {
+      "page": "/admin/audit",
+      "regex": "^/admin/audit(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/audit(?:/)?$"
+    },
+    {
+      "page": "/admin/event",
+      "regex": "^/admin/event(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/event(?:/)?$"
+    },
+    {
+      "page": "/admin/participants",
+      "regex": "^/admin/participants(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/participants(?:/)?$"
+    },
+    {
+      "page": "/admin/volunteers",
+      "regex": "^/admin/volunteers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/volunteers(?:/)?$"
+    },
+    {
       "page": "/api/admin/dashboard",
       "regex": "^/api/admin/dashboard(?:/)?$",
       "routeKeys": {},
@@ -93,6 +117,12 @@
       "namedRegex": "^/api/attendance(?:/)?$"
     },
     {
+      "page": "/api/auth/logout",
+      "regex": "^/api/auth/logout(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/auth/logout(?:/)?$"
+    },
+    {
       "page": "/api/event/bootstrap",
       "regex": "^/api/event/bootstrap(?:/)?$",
       "routeKeys": {},
@@ -109,6 +139,12 @@
       "regex": "^/api/teams(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/teams(?:/)?$"
+    },
+    {
+      "page": "/auth/callback",
+      "regex": "^/auth/callback(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/auth/callback(?:/)?$"
     },
     {
       "page": "/volunteer",
