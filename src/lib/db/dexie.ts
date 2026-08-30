@@ -4,7 +4,7 @@ export interface LocalParticipant {
   id: string;
   registration_number: string;
   full_name: string;
-  email: string;
+  email?: string;
   qr_token_hash: string;
 }
 

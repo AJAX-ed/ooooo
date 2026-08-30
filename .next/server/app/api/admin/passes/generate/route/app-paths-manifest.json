@@ -1,0 +1,3 @@
+{
+  "/api/admin/passes/generate/route": "app/api/admin/passes/generate/route.js"
+}
