@@ -1,0 +1,17 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/admin/page": "/admin",
+  "/api/admin/dashboard/route": "/api/admin/dashboard",
+  "/api/admin/participants/import/route": "/api/admin/participants/import",
+  "/api/admin/participants/route": "/api/admin/participants",
+  "/api/admin/passes/generate/route": "/api/admin/passes/generate",
+  "/api/admin/volunteers/route": "/api/admin/volunteers",
+  "/api/attendance/route": "/api/attendance",
+  "/api/event/bootstrap/route": "/api/event/bootstrap",
+  "/api/sync/route": "/api/sync",
+  "/api/teams/[id]/members/route": "/api/teams/[id]/members",
+  "/api/teams/route": "/api/teams",
+  "/page": "/",
+  "/volunteer/page": "/volunteer"
+}

@@ -1,38 +1,31 @@
 ```
-# TypeScript/Next.js build artifacts
-*.tsbuildinfo
+# Next.js
 .next/
 out/
 
 # Dependencies
 node_modules/
 
-# Environment variables
-.env
-.env.local
-.env.*
-
 # Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Editor/IDE
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-*.tmp
 
-# OS generated files
+# OS
 .DS_Store
 Thumbs.db
 
-# Coverage reports
-coverage/
-htmlcov/
-*.coverage
-
-# Build outputs
-dist/
-build/
-target/
+# TypeScript
+*.tsbuildinfo
 ```
