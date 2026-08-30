@@ -58,7 +58,8 @@ create policy participants_admin_manage on public.participants for all to authen
 
 create policy teams_active_volunteers_read on public.teams for select to authenticated using (public.is_active_volunteer());
 create policy teams_active_volunteers_create on public.teams for insert to authenticated with check (public.is_active_volunteer() and created_by = (select auth.uid()));
-create policy teams_admin_manage on public.teams for update, delete to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy teams_admin_manage_update on public.teams for update to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy teams_admin_manage_delete on public.teams for delete to authenticated using (public.is_admin());
 
 create policy team_members_active_volunteers_read on public.team_members for select to authenticated using (public.is_active_volunteer());
 create policy team_members_active_volunteers_create on public.team_members for insert to authenticated with check (public.is_active_volunteer() and added_by = (select auth.uid()));
@@ -66,11 +67,13 @@ create policy team_members_admin_manage on public.team_members for delete to aut
 
 create policy attendance_active_volunteers_read on public.attendance for select to authenticated using (public.is_active_volunteer());
 create policy attendance_active_volunteers_create on public.attendance for insert to authenticated with check (public.is_active_volunteer() and recorded_by = (select auth.uid()) and recorded_at <= now());
-create policy attendance_admin_manage on public.attendance for update, delete to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy attendance_admin_manage_update on public.attendance for update to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy attendance_admin_manage_delete on public.attendance for delete to authenticated using (public.is_admin());
 
 create policy sync_operations_owner_read on public.sync_operations for select to authenticated using (volunteer_id = (select auth.uid()) or public.is_admin());
 create policy sync_operations_owner_create on public.sync_operations for insert to authenticated with check (public.is_active_volunteer() and volunteer_id = (select auth.uid()));
-create policy sync_operations_admin_manage on public.sync_operations for update, delete to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy sync_operations_admin_manage_update on public.sync_operations for update to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy sync_operations_admin_manage_delete on public.sync_operations for delete to authenticated using (public.is_admin());
 
 create policy audit_logs_admin_read on public.audit_logs for select to authenticated using (public.is_admin());
 create policy audit_logs_active_volunteer_create on public.audit_logs for insert to authenticated with check (public.is_active_volunteer() and actor_id = (select auth.uid()));
